@@ -1,3 +1,5 @@
+#![deny(clippy::pedantic)]
+
 use html5ever::tendril::TendrilSink;
 use html5ever::{parse_document, ParseOpts};
 
@@ -12,6 +14,7 @@ use html5ever::{parse_document, ParseOpts};
 /// let output = strip_html_tags(input);
 /// assert_eq!(output, "Hello World!");
 /// ```
+#[must_use]
 pub fn strip_html_tags(input: &str) -> String {
     parse_document(sink::TextOnly::default(), ParseOpts::default()).one(input)
 }
@@ -172,33 +175,33 @@ mod tests {
 
     #[test]
     fn strip_nested_a() {
-        let input = r#"<html><a>a<a>b</a>c</a></html>"#;
+        let input = r"<html><a>a<a>b</a>c</a></html>";
         let output = strip_html_tags(input);
         assert_eq!(output, "abc");
     }
 
     #[test]
     fn strip_table() {
-        let input = r#"<html>a<table> b<tr> <td>c</td> </tr>d </table>e</html>"#;
+        let input = r"<html>a<table> b<tr> <td>c</td> </tr>d </table>e</html>";
         let output = strip_html_tags(input);
         assert_eq!(output, "a b c d e");
     }
 
     #[test]
     fn malformed() {
-        let input = r#"<html>a<b</html>"#;
+        let input = r"<html>a<b</html>";
         let output = strip_html_tags(input);
         assert_eq!(output, "a");
 
-        let input = r#"<html>a < b</html>"#;
+        let input = r"<html>a < b</html>";
         let output = strip_html_tags(input);
         assert_eq!(output, "a < b");
 
-        let input = r#"<html>a>b</html>"#;
+        let input = r"<html>a>b</html>";
         let output = strip_html_tags(input);
         assert_eq!(output, "a>b");
 
-        let input = r#"<html>a > b</html>"#;
+        let input = r"<html>a > b</html>";
         let output = strip_html_tags(input);
         assert_eq!(output, "a > b");
     }
