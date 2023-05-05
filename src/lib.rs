@@ -1,3 +1,5 @@
+#![deny(clippy::pedantic)]
+
 use html5ever::tendril::TendrilSink;
 use html5ever::{parse_document, ParseOpts};
 
@@ -12,6 +14,7 @@ use html5ever::{parse_document, ParseOpts};
 /// let output = strip_html_tags(input);
 /// assert_eq!(output, "Hello World!");
 /// ```
+#[must_use]
 pub fn strip_html_tags(input: &str) -> String {
     parse_document(sink::TextOnly::default(), ParseOpts::default()).one(input)
 }
