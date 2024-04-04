@@ -9,4 +9,4 @@ authors = ["Keith Yeung <kungfukeith11@gmail.com>"]
 edition = "2021"
 
 [dependencies]
-html5ever = "0.26.0"
+html5ever = "0.27.0"
