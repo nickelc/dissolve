@@ -1,7 +1,7 @@
 #![deny(clippy::pedantic)]
 
 use html5ever::tendril::TendrilSink;
-use html5ever::{parse_document, ParseOpts};
+use html5ever::{ParseOpts, parse_document};
 
 /// Consumes a string that contains HTML5 tags and outputs a `String` containing the text content
 /// inside the tags.
